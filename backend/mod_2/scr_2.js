@@ -11,12 +11,12 @@
  - код статуса ответа;
  Подсказка, нужно посмотреть встроенные события Node.js, а также объекты request и response.
  */
-
+var port = 3000;
 var http = require("http");
-var server = http.createServer(function (req, resp) {
+http.createServer(function (req, resp) {
+    console.log("Listen port[" + port + "]");
     console.log("Method: " + req.method);
     console.log("URL: " + req.url);
-    console.log("Resp: " + req.status);
-}).listen(3000);
-
-server.on();
+    console.log("Resp: " + resp.statusCode);
+    resp.end();
+}).listen(port);
