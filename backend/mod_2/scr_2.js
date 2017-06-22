@@ -11,12 +11,22 @@
  - код статуса ответа;
  Подсказка, нужно посмотреть встроенные события Node.js, а также объекты request и response.
  */
+var http = require('http');
+var EventEmitter = require('events');
+var emiter = new EventEmitter();
+
 var port = 3000;
-var http = require("http");
-http.createServer(function (req, resp) {
+var server = http.createServer (function (req, res) {
     console.log("Listen port[" + port + "]");
     console.log("Method: " + req.method);
     console.log("URL: " + req.url);
-    console.log("Resp: " + resp.statusCode);
-    resp.end();
-}).listen(port);
+    console.log("Resp: " + res.statusCode);
+    console.log('Connected...');
+    res.end();
+});
+
+emiter.on('Connection',function(){
+    return server.listen(port);
+});
+
+emiter.emit('Connection');
