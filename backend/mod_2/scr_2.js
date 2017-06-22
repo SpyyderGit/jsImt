@@ -16,16 +16,29 @@ var EventEmitter = require('events');
 var emiter = new EventEmitter();
 
 var port = 3000;
-var server = http.createServer (function (req, res) {
-    console.log("Listen port[" + port + "]");
+
+
+function setParams(getPort) {
+    getPort();
+}
+
+setParams(function () {
+    console.log('Listen port ' + [port] + '...');
+});
+
+var serverParams = function (req, res) {
     console.log("Method: " + req.method);
     console.log("URL: " + req.url);
     console.log("Resp: " + res.statusCode);
     console.log('Connected...');
     res.end();
-});
+};
 
-emiter.on('Connection',function(){
+
+var server = http.createServer(serverParams);
+
+
+emiter.on('Connection', function () {
     return server.listen(port);
 });
 
